@@ -13,8 +13,7 @@ public class Instrumento {
 	private String nombre;
 	private String categoria;
 	private String descripcion;
-
-	private Instrumento() {}
+	public Instrumento() {}
 
 	public Instrumento(String nombre, String categoria, String descripcion) {
 		this.nombre = nombre;

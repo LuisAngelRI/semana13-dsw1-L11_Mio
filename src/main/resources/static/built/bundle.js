@@ -41070,7 +41070,8 @@ var PageHome = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       instrumentos: [],
-      musicos: []
+      musicos: [],
+      bandas: []
     };
     return _this;
   }
@@ -41094,25 +41095,57 @@ var PageHome = /*#__PURE__*/function (_React$Component) {
           musicos: response.entity._embedded.musicos
         });
       });
+      client({
+        method: 'GET',
+        path: '/api/bandas'
+      }).done(function (response) {
+        _this2.setState({
+          bandas: response.entity._embedded.bandas
+        });
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Demo App!"), /*#__PURE__*/React.createElement(Titulo, {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Demo App!"), /*#__PURE__*/React.createElement("div", {
+        style: {
+          "width": "100%",
+          "display": "flex"
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          "width": "calc(100% / 3)"
+        }
+      }, /*#__PURE__*/React.createElement(Titulo, {
         entidad: "Instrumentos",
         emoji: "\uD83C\uDFB8"
       }), /*#__PURE__*/React.createElement(InstrumentoList, {
         instrumentos: this.state.instrumentos
       }), /*#__PURE__*/React.createElement(Link, {
         to: "/nuevo-instrumento"
-      }, "Nuevo Instrumento"), /*#__PURE__*/React.createElement(Titulo, {
+      }, "Nuevo Instrumento")), /*#__PURE__*/React.createElement("div", {
+        style: {
+          "width": "calc(100% / 3)"
+        }
+      }, /*#__PURE__*/React.createElement(Titulo, {
         entidad: "Musicos",
         emoji: "\uD83C\uDFB5"
       }), /*#__PURE__*/React.createElement(MusicoList, {
         musicos: this.state.musicos
       }), /*#__PURE__*/React.createElement(Link, {
         to: "/nuevo-musico"
-      }, "Nuevo Musico"));
+      }, "Nuevo Musico")), /*#__PURE__*/React.createElement("div", {
+        style: {
+          "width": "calc(100% / 3)"
+        }
+      }, /*#__PURE__*/React.createElement(Titulo, {
+        entidad: "Bandas",
+        emoji: "\uD83D\uDC69\uD83C\uDFFC\u200D\uD83C\uDFA4"
+      }), /*#__PURE__*/React.createElement(BandaList, {
+        bandas: this.state.bandas
+      }), /*#__PURE__*/React.createElement(Link, {
+        to: "/nueva-banda"
+      }, "Nueva Banda"))));
     }
   }]);
   return PageHome;
@@ -41166,12 +41199,35 @@ var MusicoList = /*#__PURE__*/function (_React$Component3) {
   }]);
   return MusicoList;
 }(React.Component);
-var Instrumento = /*#__PURE__*/function (_React$Component4) {
-  _inherits(Instrumento, _React$Component4);
-  var _super4 = _createSuper(Instrumento);
+var BandaList = /*#__PURE__*/function (_React$Component4) {
+  _inherits(BandaList, _React$Component4);
+  var _super4 = _createSuper(BandaList);
+  function BandaList() {
+    _classCallCheck(this, BandaList);
+    return _super4.apply(this, arguments);
+  }
+  _createClass(BandaList, [{
+    key: "render",
+    value: function render() {
+      var bandas = this.props.bandas.map(function (banda) {
+        return /*#__PURE__*/React.createElement(Banda, {
+          key: banda._links.self.href,
+          banda: banda
+        });
+      });
+      return /*#__PURE__*/React.createElement("table", {
+        border: "1"
+      }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Nombre"), /*#__PURE__*/React.createElement("th", null, "Acciones")), bandas));
+    }
+  }]);
+  return BandaList;
+}(React.Component);
+var Instrumento = /*#__PURE__*/function (_React$Component5) {
+  _inherits(Instrumento, _React$Component5);
+  var _super5 = _createSuper(Instrumento);
   function Instrumento() {
     _classCallCheck(this, Instrumento);
-    return _super4.apply(this, arguments);
+    return _super5.apply(this, arguments);
   }
   _createClass(Instrumento, [{
     key: "render",
@@ -41186,12 +41242,12 @@ var Instrumento = /*#__PURE__*/function (_React$Component4) {
   }]);
   return Instrumento;
 }(React.Component);
-var Musico = /*#__PURE__*/function (_React$Component5) {
-  _inherits(Musico, _React$Component5);
-  var _super5 = _createSuper(Musico);
+var Musico = /*#__PURE__*/function (_React$Component6) {
+  _inherits(Musico, _React$Component6);
+  var _super6 = _createSuper(Musico);
   function Musico() {
     _classCallCheck(this, Musico);
-    return _super5.apply(this, arguments);
+    return _super6.apply(this, arguments);
   }
   _createClass(Musico, [{
     key: "render",
@@ -41203,6 +41259,24 @@ var Musico = /*#__PURE__*/function (_React$Component5) {
     }
   }]);
   return Musico;
+}(React.Component);
+var Banda = /*#__PURE__*/function (_React$Component7) {
+  _inherits(Banda, _React$Component7);
+  var _super7 = _createSuper(Banda);
+  function Banda() {
+    _classCallCheck(this, Banda);
+    return _super7.apply(this, arguments);
+  }
+  _createClass(Banda, [{
+    key: "render",
+    value: function render() {
+      var id = this.props.banda._links.self.href.split("/").slice(-1);
+      return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, this.props.banda.nombre), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement(Link, {
+        to: "/ver-banda/".concat(id)
+      }, "Ver Banda")));
+    }
+  }]);
+  return Banda;
 }(React.Component);
 module.exports = PageHome;
 
