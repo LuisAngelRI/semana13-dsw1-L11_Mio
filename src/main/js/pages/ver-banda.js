@@ -10,17 +10,20 @@ const PageVerBanda = (props) => {
     let { id } = useParams();
     const [banda, setBanda] = useState({});
     // const [integrantes, setIntegrantes] = useState([]);
+    const [integrantes, setIntegrantes] = useState([]);
 
 
     useEffect(() => {
+        url_banda = '/api/bandas/' + id
         client({
             method: 'GET',
-            path: '/api/bandas/' + id
-        }).done(response => {
-            setBanda(response.entity);
-        });
-
-
+            path: url_banda
+        }).done(response => setBanda(response.entity));
+        client({
+            method: 'GET',
+            path: url_banda + '/formacion'
+        }).done(response => setIntegrantes(response.entity))
+       
     }, []);
 
 
@@ -34,6 +37,13 @@ const PageVerBanda = (props) => {
                         <td>{banda.nombre}</td>
                     </tr>
                 </tbody>
+            </table>
+
+            <hr />
+
+            <h2>integrantes</h2>
+            <table>
+
             </table>
 
             <Link to="/">Volver</Link>

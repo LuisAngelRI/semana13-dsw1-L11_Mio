@@ -41463,16 +41463,26 @@ var PageVerBanda = function PageVerBanda(props) {
     banda = _useState2[0],
     setBanda = _useState2[1];
   // const [integrantes, setIntegrantes] = useState([]);
-
+  var _useState3 = useState([]),
+    _useState4 = _slicedToArray(_useState3, 2),
+    integrantes = _useState4[0],
+    setIntegrantes = _useState4[1];
   useEffect(function () {
+    url_banda = '/api/bandas/' + id;
     client({
       method: 'GET',
-      path: '/api/bandas/' + id
+      path: url_banda
     }).done(function (response) {
-      setBanda(response.entity);
+      return setBanda(response.entity);
+    });
+    client({
+      method: 'GET',
+      path: url_banda + '/formacion'
+    }).done(function (response) {
+      return setIntegrantes(response.entity);
     });
   }, []);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Banda"), /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Nombre"), /*#__PURE__*/React.createElement("td", null, banda.nombre)))), /*#__PURE__*/React.createElement(Link, {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Banda"), /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Nombre"), /*#__PURE__*/React.createElement("td", null, banda.nombre)))), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement("h2", null, "integrantes"), /*#__PURE__*/React.createElement("table", null), /*#__PURE__*/React.createElement(Link, {
     to: "/"
   }, "Volver"));
 };
