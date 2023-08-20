@@ -9,6 +9,8 @@ const PageNuevoMusico = require('./pages/nuevo-musico');
 const PageEditarMusico = require('./pages/editar-musico');
 const PageEditarInstrumento = require('./pages/editar-instrumento');
 const PageVerBanda = require('./pages/ver-banda');
+const PageNuevoIntegrante = require('./pages/nuevo-integrante');
+
 const router = createBrowserRouter([
 	{path: '/', element: <PageHome />},
 	{path: '/ver-instrumento/:id', element: <PageVerInstrumento />},
@@ -17,6 +19,7 @@ const router = createBrowserRouter([
 	{path: '/editar-musico/:id', element: <PageEditarMusico />},
 	{path: '/editar-instrumento/:id', element: <PageEditarInstrumento />},
 	{path: '/ver-banda/:id', element: <PageVerBanda />},
+	{path: '/ver-banda/:id/nuevo-integrante', element: <PageNuevoIntegrante />},
 ])
 
 
